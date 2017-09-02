@@ -11,7 +11,6 @@ from threading import Thread
 from Config import Config
 import time
 import Googleapi_test
-import GPS_test
 import move_car
 import readchar
 import ult_lib
@@ -153,26 +152,16 @@ class SpeechProcess(Thread):
     def run(self):
         self.needStop = False        
         Direction = Googleapi_test.Googleapi_test()
-        gps_test = GPS_test.GPS_test()
-        #move = move_car.carMove()
+
        
        
         try:
             while not self.needStop:
-                #self.getLatLon()               
+    
                 wakeup = self.voiceCmd.startDetect()
                 self.handler.sendEmptyMessage(MsgConst.MSG_FORCE_STOP_TTS)
               
-                #move.forward()
-                #print(0)
-                #self.ult_sensor()
-                #if ult.measure_average() <= 17:
-                    #print("close")
-                    #msg = self.handler.obtainMessage1(MsgConst.MSG_NORMAL_TTS_PLAY)
-              #msg.obj = "太近了"
-                    #self.handler.sendMessage(msg)
-                    #time.sleep(0.5)
-                    #self.audioSrc.clearData() 
+
                
                 if wakeup != VoiceCmd.STATE_STOPPED:  
                         
@@ -181,14 +170,10 @@ class SpeechProcess(Thread):
                         msg.obj = "在"                
                         self.handler.sendMessage(msg)
                         time.sleep(0.5)
-                        #self.audioSrc.clearData() 
-                        #gps_test.GPS_Speech()
                         self.audioSrc.clearData()
-                    #self.ultThread.pause()
-                    #print('start')
+
                     nlpResult = self.nlp.getNlpResult(self.audioSrc)
-                    #self.ultThread.resume()
-                    #print(0)
+
                     print (nlpResult)
                     if nlpResult != None:
                         #print(0)
